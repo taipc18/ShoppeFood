@@ -1,0 +1,53 @@
+  <body>
+  <h1 class="text-center" style="color: #de7a22;">Index Auth</h1>
+  <table class="table table-border">
+    <thead class="bg-info" style="font-variant: small-caps">
+    <tr>
+      <th></th>
+      <th ng-repeat="role in roles" class="text-center table_heading">{{role.name}}</th>
+    </tr>
+  </thead>
+  <tbody>
+        <tr ng-repeat="acc in admins">
+          <td >{{acc.fullname}}</td>
+          <th ng-repeat="role in roles" class="text-center" >
+              <input ng-checked="authority_of(acc, role)" ng-click="authority_changed(acc, role)" type="checkbox"/>
+
+          </th>
+        </tr>
+      </tbody>
+  </table>
+  </body>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+
+  font-weight: 400;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  background-color: white;
+}
+
+td, th { padding: 8px; padding: .5rem;
+}
+
+th {
+  text-align: left;
+  font-weight: 300;
+  font-size: 20px;
+  font-size: 1.25rem;
+}
+
+td { font-family: 'Avenir Next', 'Segoe UI', 'Lucida Grande', sans-serif; }
+
+.table {
+  width: 100%;
+  padding: 16px;
+  padding: 1rem;
+}
+</style> 

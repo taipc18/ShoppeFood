@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/index::dynamic(~{::main})}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+
+<body>
+    <main th:object="${item}" class="poly-item-detail">
+		<div class="row p-0">
+			<div class="box-left2 col-7">
+				<div class="chitiet">
+					<div class="thongtin">
+						<ul>
+						<span> <p th:text="*{name}"></p> </span>	
+						<span id="gia"><p th:text="*{price}"></p></span>	
+							<!-- <p th:text="*{createDate}"></p> -->
+						<span id="name2"> <p th:text="*{category.name}"></p></span>	
+						</ul>
+					</div>
+					<div class="shoppingcart">
+						<div class="row">
+							
+								<button class="muahang2" th:attr="ng-click=@{|cart.add(*{id})|}">MUA NGAY</button>
+								<button class="muahang">
+									<a th:href="@{/cart/view}" style="color: white;"><i class="fa-solid fa-cart-shopping"></i></a>
+								</button>
+						</div>
+						
+					</div>
+					
+				</div>
+			</div>
+			<div class="box-right col-5">
+				<div class="card-body text-center" id="body-cart2">
+					<img th:src="@{|../../../assert/images/*{image}|}">
+					
+				</div>
+			</div>
+		</div>
+		
+       
+        <div>
+        	<div class="body-same">
+        		<div class="same">Có thể bạn thích</div>
+        		<div class="list-same">
+        			<ul>
+        				<li th:each="p:*{category.products}" id="anhsame">       					
+							<a th:href="@{|/product/detail/${p.id}|}" >
+								<img th:src="@{|../../../assert/images/${p.image}|}">
+							</a>
+							
+						</li>
+        			</ul>
+        		</div>
+        	</div>
+        </div>
+    </main>
+</body>
+</html>

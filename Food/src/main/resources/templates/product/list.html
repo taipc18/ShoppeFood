@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/index::dynamic(~{::main})}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+
+<body>
+    <main class="row">
+		<div id="banner">
+            <div class="box-left">
+                <h2>
+                    <span>THỨC ĂN</span>
+                    <br>
+                    <span>THƯỢNG HẠNG</span>
+                </h2>
+                <P>Chúng ta đang sống trong thời đại “Tiêu dùng và hưởng thụ”.
+                Tại đây, lối sống ăn khoẻ, ít vận động và phụ thuộc nhiều vào 
+                thiết bị điện tử đang trở nên nổi trội hơn bao giờ hết.</P>
+                 
+                <button>ĐẶT NGAY</button>
+            </div>
+            <div class="box-right">
+                <img src="https://i.pinimg.com/564x/9f/99/7f/9f997fbe513422012d8ea0244448eae3.jpg" alt="">
+                <img src="https://i.pinimg.com/236x/28/f9/8d/28f98da789610d9e332c6de6208c1e4a.jpg" id="giua" alt="">
+                <img src="https://i.pinimg.com/564x/f0/c6/09/f0c609401591097e82a3d58aedf582a2.jpg" alt="">
+            </div>
+            
+        </div>
+
+        
+       
+        <div th:each="p : ${items}" class="col-sm-3">
+        	<div class="card card-primary poly-item text-center" id="cart-body">
+        		
+        		<div class="hover-rotate">
+        			<a th:href="@{|/product/detail/${p.id}|}">
+        				<img th:src="@{|../assert/images/${p.image}|}">
+        			</a>
+                    <div class="card-title" th:utext="${p.name}"></div>
+        			<b class="pull-left">[[${p.price}]] VNĐ</b>
+                    <br> 
+        			<button th:attr="ng-click=@{|cart.add(${p.id})|}">Mua</button>
+        		</div>
+        		
+        	</div>
+            <br>
+            <br>
+        </div>
+
+        <div id="saleoff">
+            <div class="box-left">
+               
+                <h1>             
+                    <span>GIẢM GIÁ LÊN ĐẾN</span>
+                    <span>45%</span>
+                </h1>
+            </div>
+            <div class="box-right" ></div>
+        </div>
+        <div class="card-footer text-center">
+			<button ng-click="pager.first()" class="btn btn-danger">
+				<b class="glyphicon glyphicon-hand-up"></b>
+			</button>
+			<button ng-click="pager.prev()" class="btn btn-primary">
+				<b class="glyphicon glyphicon-hand-left"></b>
+			</button>
+			<button class="btn btn-success">{{pager.page + 1}} of {{pager.count}}</button>
+			<button ng-click="pager.next()" class="btn btn-primary">
+				<b class="glyphicon glyphicon-hand-right"></b>
+			</button>
+			<button ng-click="pager.last()" class="btn btn-danger">
+				<b class="glyphicon glyphicon-hand-down"></b>
+			</button>
+		</div>
+    </main>
+</body>
+
+</html>

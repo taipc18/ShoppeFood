@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/layout/index::dynamic(~{::main})}">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../../../signup.css">
+</head>
+<body>
+    <main>
+    	<div class="content-wrapper">
+        <div class="content">
+            <div class="signup-wrapper shadow-box">
+                <div class="company-details ">
+                  
+                    <div class="shadow"></div>
+                    <div class="wrapper-1">
+                        <div class="logo">
+       <div class="icon-food">
+         
+                    </div>
+                        </div>
+                        <h1 class="title">Thức ăn thượng hạn</h1>
+                        <div class="slogan">Have it your way.
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="signup-form ">
+                    <div class="wrapper-2">
+                        <div class="form-title">Login today!</div>
+                        <div class="form">
+                            <form th:action="@{|/security/login|}" method="post" class="col-sm-8 col-sm-offset-2">
+                                <p class="content-item">
+                                    <label>Username
+                                        <input type="text" name="username" class="form-control" placeholder="username"  required>
+                                    </label>
+                                </p>
+
+                                <p class="content-item">
+
+                                    <label>password
+                                        <input type="password" name="password" placeholder="password" class="form-control" required>
+                                    </label>
+                                </p>
+
+                                <p class="content-item">
+                                    <label class="checkbox text-left">
+                                      <input type="checkbox" value="remember-me" name="remember-me">
+                                      <span class="label-text">Remember me</span>
+                                    </label>
+                                </p>
+                                <i class="pull-left text-danger" th:text="${ms}"></i>
+                                  
+                                    <p class="content-item">
+                                      <a class="lnk-toggler" data-panel=".panel-forgot" th:href="@{/security/changepass/form}">Forgot password?</a>
+                                    </p>
+
+                                <button type="submit"  class="signup">Login </button>
+                                <a th:href="@{/security/signup/form}" class="login">SignUp <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+    </main>
+</body>
+</html>

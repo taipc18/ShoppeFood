@@ -1,0 +1,227 @@
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;1,500&display=swap');
+
+*{
+    padding:0;
+    margin:0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+  
+}
+	.logo ion-icon {
+		width: 50px;
+		height: 50px;
+		color: black;
+		transition: 0.5s all;
+	}
+
+	.logo ion-icon:hover {
+		transform: rotate(39deg);
+	}
+	 #menu  {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+}
+#menu .item a {
+    margin:0px 15px;
+	
+    color:black;
+    text-decoration: none;  /* mất gạch chân */
+    transition:color 0.4s;
+}
+#menu .item a:hover {
+    color:rgb(44, 165, 165) ;
+}
+
+/* actions */
+.actions {
+	margin-left: 13%;
+    display: flex;
+    width: 300px;
+    color:black;
+}
+ 
+.actions div {
+    margin:0px 20px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border:2px solid black;
+}
+.actions div ion-icon {
+    font-size:20px;
+}
+
+.actions .cart {
+    position:relative;
+}
+.actions .cart small {
+    position:absolute;
+    top:-12px;
+    right:-5px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+	
+    background:rgb(44, 165, 165);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.cart:hover{
+    color:rgb(44, 165, 165) ;
+    transition:color 0.7s;
+
+} 
+small {
+	color: white;
+}
+.actions .cart  small:hover{
+    color: white;
+    transition:color 0.7s;
+
+}
+.contact:hover{
+    color:rgb(44, 165, 165) ;
+    transition:color 0.7s;
+}
+.more:hover{
+    color:rgb(44, 165, 165) ;
+    transition:color 0.7s;
+}
+
+#chao{
+	font-size: 25px;
+	font-family: Florence, cursive;
+	color: rgb(44, 165, 165);
+}
+
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  width:200px;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+
+</style>
+<div xmlns:th="http://www.thymeleaf.org" class="w-100">
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<!-- <a class="navbar-brand" href="#">Navbar</a> -->
+		<a th:href="@{/}" class="logo">
+			<ion-icon name="fast-food-outline"></ion-icon>
+		</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+			aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNavDropdown">
+			<div id="menu">
+				<div class="item">
+					<a th:href="@{/}">Trang Chủ</a>
+				</div>
+				<div class="dropdown">
+					<a class="dropbtn">Loại đồ ăn</a>
+					<div class="dropdown-content">
+					   <a th:each="c:${cates}" th:href="@{|/product/list?cid=${c.id}|}">[[${c.name}]]</a>
+					</div>
+				</div>
+				<th:block th:if="${#request.remoteUser}">
+					<div class="item">
+						<a th:href="@{/order/list}">Lịch sử mua hàng</a>
+					</div>
+					<div class="item">
+						<a th:if="${#request.isUserInRole('DIRE') or #request.isUserInRole('STAF')}"
+						th:href="@{/admin/home/index}" >Trang Quản lí</a>
+					</div>
+				</th:block>
+				<th:block th:unless="${#request.remoteUser}">
+		      		<div class="item">
+						<a th:href="@{/security/login/form}">Đăng nhập</a>
+					</div>
+					<div class="item">
+						<a th:href="@{/security/signup/form}">Đăng ký</a>
+					</div>
+			    </th:block>
+			</div>
+			<div class="actions">
+				<div class="cart">
+					<a th:href="@{/cart/view}" style="color: black;">
+						<ion-icon name="cart-outline"></ion-icon>
+						<small>{{cart.count}}</small>
+					</a>
+				</div>
+				<div class="contact">
+					<ion-icon name="call-outline"></ion-icon>
+				</div>
+				<div class="more">
+					<ion-icon name="ellipsis-vertical-outline"></ion-icon>
+				</div>
+			</div>
+			
+			
+			<ul class="nav navbar-nav ml-auto" th:if="${#request.remoteUser}">
+				<li class="nav-item active">
+					<div class="dropdown">
+						<a class="nav-link dropbtn" href="">Hello:<span id="chao"> [[${#request.remoteUser}]]</span>  
+						<span class="sr-only">(current)</span></a>
+						<div class="dropdown-content">
+					   		<a th:href="@{/security/changepass/form}">Quên mật khẩu</a>
+					   		<a th:href="@{/security/logoff}">Đăng xuất</a>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</nav>
+
+	<!-- <div class="top-header " >
+		<div class="logo">
+			<ion-icon name="fast-food-outline"></ion-icon>
+		</div>
+		<div id="menu">
+			<div class="item">
+				<a href="#">Trang Chủ</a>
+			</div>
+			<div class="item">
+				<a href="#">Sản Phẩm</a>
+			</div>
+			<div class="item">
+				<a href="#">Blog</a>
+			</div>
+			<div class="item">
+				<a href="#">Liện Hệ</a>
+			</div>
+		</div>
+	  
+		
+	</div> -->
+</div>
